@@ -1,0 +1,53 @@
+#+title: Setup For The Tests
+#+startup: overview
+
+To test the code, [[https://github.com/jorgenschaefer/emacs-buttercup][buttercup]] is used and [[https://github.com/cask/cask][cask]] will run those tests.
+For the continuous integration, [[https://travis-ci.org][travis-ci]] is the one.
+
+* Table of Contents
+:PROPERTIES:
+:TOC:      :include all :depth 2 :ignore (this)
+:END:
+:CONTENTS:
+- [[#the-cask-file][The Cask File]]
+- [[#travis-configuration][Travis Configuration]]
+:END:
+
+* The Cask File
+
+The ~Cask~ file will fetch the dependencies for our tests like [[https://github.com/jorgenschaefer/emacs-buttercup][buttercup]]
+and [[https://orgmode.org][org-mode]].
+
+#+begin_src emacs-lisp :tangle ../Cask
+;; NOTE:
+;;  This file is generated automaticly using literate config (org-babel-tangle).
+;;  To modify it, see the file 'docs/Tests-Setup.org'.
+(source gnu)
+(source melpa-stable)
+
+(development
+ (depends-on "buttercup")
+ (depends-on "org"))
+#+end_src
+
+* Travis Configuration
+
+#+begin_src yaml :tangle ../.travis.yml
+# NOTE:
+#  This file is generated automaticly using literate config (org-babel-tangle).
+#  To modify it, see the file 'docs/Tests-Setup.org'.
+language: emacs-lisp
+sudo: false
+cache: apt
+env:
+  - EVM_EMACS=emacs-25.1-travis
+before_install:
+  - curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw > travis.sh && source ./travis.sh
+  - evm install $EVM_EMACS --use --skip
+  - cask
+install:
+  - cask install
+script:
+  - emacs --version
+  - cask exec buttercup -L .
+#+end_src
