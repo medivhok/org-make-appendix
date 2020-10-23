@@ -1,6 +1,8 @@
 #+title: org-make-appendix
 #+startup: overview
 
+[[https://travis-ci.com/medivhok/org-make-appendix.svg?branch=main]]
+
 The first intent of this project is to add, as a subheader to the appendix
 of my Emacs literate configuration, the list of all the package I install.
 
