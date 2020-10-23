@@ -1,0 +1,10 @@
+#+title: org-make-appendix
+#+startup: overview
+
+The first intent of this project is to add, as a subheader to the appendix
+of my Emacs literate configuration, the list of all the package I install.
+
+- The list should be sorted in alphabatical order;
+- each element should be under a headline of the first letter;
+- the element name should be a link to the heading; and
+- a link to the element website should be added like /(website)/.
